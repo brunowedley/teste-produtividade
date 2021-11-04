@@ -6,9 +6,9 @@ import Header from './components/header/Header';
 import Tasks from './components/tasks/Tasks';
 
 import { library } from '@fortawesome/fontawesome-svg-core'
-import { faCheckCircle, faTrashAlt } from '@fortawesome/free-solid-svg-icons'
+import { faCheckCircle, faTrashAlt, faSitemap, faCalendarPlus } from '@fortawesome/free-solid-svg-icons'
 
-library.add(faCheckCircle, faTrashAlt);
+library.add(faCheckCircle, faTrashAlt, faSitemap, faCalendarPlus);
 
 class App extends Component {
   render() {

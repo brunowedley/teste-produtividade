@@ -7,8 +7,10 @@ class Header extends Component {
     return (
       <div>
         <Navbar>
-          <Navbar.Brand>
-            <FontAwesomeIcon icon='check-circle' size='lg' /> Task Finisher
+          <Navbar.Brand className='appName' >
+            <div>
+            <FontAwesomeIcon icon='sitemap' size='lg' /> Organization-App
+            </div>
           </Navbar.Brand>
         </Navbar>
       </div>

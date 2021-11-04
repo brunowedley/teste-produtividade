@@ -1,9 +1,9 @@
 const connect = require('./connection');
 const { ObjectId } = require('mongodb');
 
-const insertTask = async (task, details, status, done) => {
+const insertTask = async (task, details, taskStatus) => {
   const db = await connect();
-  const result = await db.collection('tasks').insertOne({ task, details, status });
+  const result = await db.collection('tasks').insertOne({ task, details, taskStatus });
   return result;
 }
 
@@ -27,12 +27,18 @@ const removeTask = async (id) => {
   await db.collection('tasks').deleteOne({ _id: ObjectId(id) });
 }
 
-const updateTask = async (id, task, details, status) => {
+const updateTask = async (id, task, details, taskStatus) => {
   if (!ObjectId.isValid(id)) return null;
 
   const db = await connect();
-  await db.collection('tasks').updateOne({ _id: ObjectId(id) }, { $set: { task, details, status } });
-  return { id, task, details, status };
+  await db.collection('tasks').updateOne({ _id: ObjectId(id) }, { $set: { task, details, taskStatus } });
+  return { id, task, details, taskStatus };
+}
+
+const deleteAll = async () => {
+  // UTILIZAÇÃO APENAS PARA FACILITAR A REMOÇÃO DE TODAS AS INFORMAÇÕES EM CASO DE MUDANÇA DE TAGS
+  const db = await connect();
+  await db.collection('tasks').deleteMany();
 }
 
 module.exports = {
@@ -41,4 +47,5 @@ module.exports = {
   findAllTasks,
   removeTask,
   updateTask,
+  deleteAll
 };
