@@ -1,7 +1,8 @@
 require('dotenv/config');
 const express = require('express');
 const bodyParser = require('body-parser');
-const { insertTaskController, getAllTasks, deleteTask, updateTaskController } = require('./controllers/tasksController');
+const { insertTaskController, getAllTasks, deleteTask, updateTaskController, deleteAllTasks } = require('./controllers/tasksController');
+// const { deleteAll } = require('./models/tasksModel');
 const cors = require('cors');
 
 // const cors = {
@@ -19,6 +20,7 @@ app.get('/getAllTasks', getAllTasks);
 app.post('/createTask', insertTaskController);
 app.put('/updateTask/:id', updateTaskController);
 app.delete('/deleteTasks/:id', deleteTask);
+app.delete('/DELETEALL', deleteAllTasks)
 
 app.listen(PORT, () => {
   console.log(`Conexão estabelecida com sucesso na porta ${PORT}`)

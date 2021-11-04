@@ -1,11 +1,35 @@
 import React, { Component } from 'react';
 import Card from 'react-bootstrap/Card';
 import Row from 'react-bootstrap/Row';
+import Button from 'react-bootstrap/Button';
 // import Col from 'react-bootstrap/Col';
 import Table from 'react-bootstrap/Table';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class List extends Component {
+  async checkTask(task) {
+    await fetch(`http://localhost:3001/updateTask/${task._id}`, 
+    {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+       ...task, taskStatus: 'Pronto'
+      })
+    }
+  );
+  this.props.loadTasks();
+  }
+  async deleteTask(task) {
+    if(window.confirm(`Are you sure you want to delete: ${task.task}? `)) {
+      await fetch(`http://localhost:3001/deleteTasks/${task._id}`, {method: 'DELETE'});
+      // console.log(`to aqui hein, no id: ${task._id}, task: ${task.task}`);
+      this.props.loadTasks();
+    }
+  }
+
   render() {
     const { tasks } = this.props
     return(
@@ -16,18 +40,20 @@ class List extends Component {
               <tbody>
                 {Object.values(tasks).map((task, index) => {
                   return <tr key={task.id}>
-                    <td className="col-md-10" >{task.task} - {task.status}</td>
+                    <td className="col-md-10" >{task.task} - {task.taskStatus}</td>
+                    <td className="col-md-5" >{task.details}</td>
                     <td>
                       {
-                        task.status === "Em andamento" || "Pendente"
-                        ? <a className="check" href="">
-                          <FontAwesomeIcon icon="check-circle"/>
+                        task.taskStatus !== "Pronto"
+                        ? <a className="check" href="#">
+                          <FontAwesomeIcon icon="check-circle"
+                          onClick={() => this.checkTask(task)} size='lg'/>
                         </a>
                         : null
                       }
                     </td>
                     <td>
-                      <a className="delete" href="#">
+                      <a className="delete" href="#" onClick={() => this.deleteTask(task)}>
                         <FontAwesomeIcon icon="trash-alt"/>
                         </a>
                     </td>

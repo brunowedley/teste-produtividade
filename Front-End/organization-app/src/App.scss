@@ -2,14 +2,19 @@ $yellow: #F5DD16;
 $dark-grey: #7C7C7C;
 $light-grey: #BEBEBE;
 $red: #EE4525;
-
-.navbar{
-  background-color: $dark-grey;
-  .navbar-brand{
-    color: $yellow !important;
-  }
+ 
+.appName{
+display: flex;
+margin-left: 42%; 
 }
 
+.navbar{
+  background-color:#870099;
+  .navbar-brand{
+    color:#ffffff !important;
+  }
+}
+ 
 .tasks_list{
   margin-top: 40px;
   .title{
@@ -19,8 +24,15 @@ $red: #EE4525;
     margin-bottom: 4px;
   }
  
-  .card{
+  .create_task_btn{
     background-color: $dark-grey;
+    border-color: $dark-grey;
+    font-weight: 500;
+    margin-top: 10px;
+  }
+ 
+  .card{
+    background-color:#b89eff;
     table{
       tbody > tr:nth-child(1) > td{
         border-top: 0;
@@ -30,11 +42,11 @@ $red: #EE4525;
       margin-bottom: 5px;
  
       .check{
-        color: $yellow;
+        color: rgb(115, 255, 115);
         font-size: 15px;
       }
       .delete{
-        color: white;
+        color: rgb(92, 92, 92);
       }
     }
   }
