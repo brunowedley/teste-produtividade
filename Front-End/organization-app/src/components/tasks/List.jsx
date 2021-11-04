@@ -20,8 +20,27 @@ class List extends Component {
       })
     }
   );
+  
   this.props.loadTasks();
   }
+
+  async checkTaskOnGoing(task) {
+    await fetch(`http://localhost:3001/updateTask/${task._id}`, 
+    {
+      method: 'PUT',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+       ...task, taskStatus: 'Em andamento'
+      })
+    }
+  );
+  
+  this.props.loadTasks();
+  }
+
   async deleteTask(task) {
     if(window.confirm(`Are you sure you want to delete: ${task.task}? `)) {
       await fetch(`http://localhost:3001/deleteTasks/${task._id}`, {method: 'DELETE'});
@@ -44,12 +63,15 @@ class List extends Component {
                     <td className="col-md-5" >{task.details}</td>
                     <td>
                       {
-                        task.taskStatus !== "Pronto"
+                        task.taskStatus === "Pendente"
                         ? <a className="check" href="#">
-                          <FontAwesomeIcon icon="check-circle"
-                          onClick={() => this.checkTask(task)} size='lg'/>
+                          <FontAwesomeIcon icon="pencil-alt"
+                          onClick={() => this.checkTaskOnGoing(task)} size='lg'/>
                         </a>
-                        : null
+                        : <a className="check" href="#">
+                        <FontAwesomeIcon icon="check-circle"
+                        onClick={() => this.checkTask(task)} size='lg'/>
+                      </a>
                       }
                     </td>
                     <td>
