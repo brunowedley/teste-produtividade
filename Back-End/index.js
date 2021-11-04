@@ -1,7 +1,7 @@
 require('dotenv/config');
 const express = require('express');
 const bodyParser = require('body-parser');
-const { insertTaskController, getAllTasks, deleteTask, updateTaskController, deleteAllTasks } = require('./controllers/tasksController');
+const { insertTaskController, getAllTasks, deleteTask, updateTaskController, deleteAllTasks, sortByAlphaController } = require('./controllers/tasksController');
 // const { deleteAll } = require('./models/tasksModel');
 const cors = require('cors');
 
@@ -17,6 +17,7 @@ app.use(cors());
 const PORT = process.env.PORT
 
 app.get('/getAllTasks', getAllTasks);
+app.get('/getAllSort', sortByAlphaController);
 app.post('/createTask', insertTaskController);
 app.put('/updateTask/:id', updateTaskController);
 app.delete('/deleteTasks/:id', deleteTask);

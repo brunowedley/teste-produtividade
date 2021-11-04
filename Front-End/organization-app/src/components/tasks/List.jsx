@@ -65,7 +65,7 @@ class List extends Component {
                       {
                         task.taskStatus === "Pendente"
                         ? <a className="check" href="#">
-                          <FontAwesomeIcon icon="pencil-alt"
+                          <FontAwesomeIcon icon="calendar-day"
                           onClick={() => this.checkTaskOnGoing(task)} size='lg'/>
                         </a>
                         : <a className="check" href="#">
@@ -75,9 +75,12 @@ class List extends Component {
                       }
                     </td>
                     <td>
-                      <a className="delete" href="#" onClick={() => this.deleteTask(task)}>
-                        <FontAwesomeIcon icon="trash-alt"/>
+                        <a className="delete" href="#" onClick={() => this.deleteTask(task)}>
+                        <FontAwesomeIcon icon="trash-alt"/>           
                         </a>
+                        {/* <a className="check" href="#" onClick={() => this.deleteTask(task)}>
+                        <FontAwesomeIcon icon="pencil-alt"/>         
+                        </a> */}
                     </td>
                     </tr>
                 })}

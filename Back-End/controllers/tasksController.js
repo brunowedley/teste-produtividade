@@ -1,5 +1,5 @@
 // const { insertTaskService } = require('../services/tasksService');
-const { insertTask, findAllTasks, removeTask, updateTask, deleteAll } = require('../models/tasksModel');
+const { insertTask, findAllTasks, removeTask, updateTask, deleteAll, orderByAlpha } = require('../models/tasksModel');
 const { insertTaskService } = require('../services/tasksService')
 const { StatusCodes } = require('http-status-codes');
 
@@ -46,10 +46,17 @@ const updateTaskController = async (req, res) => {
   return res.status(StatusCodes.OK).json(updatedTaskStatus);
 }
 
+const sortByAlphaController = async (req, res) => {
+  const { task } = req.body;
+  const sort = await orderByAlpha(task);
+  return res.status(StatusCodes.OK).json(sort);
+}
+
 module.exports = {
   insertTaskController,
   getAllTasks,
   deleteTask,
   updateTaskController,
-  deleteAllTasks
+  deleteAllTasks,
+  sortByAlphaController
 };

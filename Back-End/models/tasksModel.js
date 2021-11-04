@@ -41,11 +41,18 @@ const deleteAll = async () => {
   await db.collection('tasks').deleteMany();
 }
 
+const orderByAlpha = async (task) => {
+  const db = await connect();
+  const result = await db.collection('tasks').find().sort({ task: 1 }).toArray();
+  return result
+}
+
 module.exports = {
   insertTask,
   findTask,
   findAllTasks,
   removeTask,
   updateTask,
-  deleteAll
+  deleteAll,
+  orderByAlpha
 };
