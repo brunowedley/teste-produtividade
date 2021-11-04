@@ -5,6 +5,7 @@ import List from './List';
 import CreateTask from './create_task';
 import Button from 'react-bootstrap/Button';
 import Modal from 'react-bootstrap/Modal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 class Tasks extends Component {
   
@@ -14,6 +15,7 @@ class Tasks extends Component {
       tasks:[]
     };
     this.loadTasks = this.loadTasks.bind(this);
+    this.loadTasksOrdered = this.loadTasksOrdered.bind(this);
     // this.handleSetVisible = this.handleSetVisible.bind(this);
   };
 
@@ -36,9 +38,16 @@ class Tasks extends Component {
     }
   }
 
-  // async handleSetVisible() {
-
-  // }
+  async loadTasksOrdered() {
+    try{
+      let response = await fetch(`http://localhost:3001/getAllSort`);
+      const tasks = await response.json();
+      console.log(tasks);
+      this.setState({ tasks: tasks });
+    } catch (e) {
+      console.log('erro');
+    }
+  }
 
   componentDidMount() {
     this.loadTasks();
@@ -50,6 +59,7 @@ class Tasks extends Component {
       <>
       <CreateTask loadTasks={this.loadTasks}/>
       <Row>
+      
         <Col xs={{ span: 8, offset: 2 }} className="tasks_list">
              <p className="title">Pending</p>
              <List loadTasks={this.loadTasks} tasks={Object.values(tasks).filter((task) => task.taskStatus === "Pendente" )}/>
@@ -64,6 +74,19 @@ class Tasks extends Component {
              <Button onClick={() => this.deleteAllTask()} variant="red" className="float-right remove_tasks_btn">Remove all tasks / Panic Button</Button>
            </Col>
       </Row>
+      <div className="buttonDiv">
+        <Button alt="ordem alfabética"
+        onClick={() => this.loadTasksOrdered()}
+        variant="red"
+        className="float-right remove_tasks_btn">
+          <FontAwesomeIcon icon='sort-alpha-down' size='lg' />
+        </Button>
+        <Button alt="data de criação" onClick={() => this.loadTasks()}
+        variant="red"
+        className="float-right remove_tasks_btn">
+          <FontAwesomeIcon icon='calendar-times' size='lg' />
+        </Button>
+      </div>
       </>
     )
   }
